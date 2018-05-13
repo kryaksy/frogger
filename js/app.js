@@ -53,6 +53,11 @@ var Player = function(x, y) {
 
 	this.isActive = true;
 }
+
+Player.prototype.update = function(dt) {
+
+}
+
 Player.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.player), this.x, this.y);
 }
