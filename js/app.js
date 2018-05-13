@@ -63,7 +63,13 @@ Player.prototype.resetLocation = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+var enemy1 = new Enemy(0, 60, 100);
+var enemy2 = new Enemy(-100, 60 + 83, 200);
+var enemy3 = new Enemy(-100, 60 + 83 * 2, 300);
+var enemy4 = new Enemy(-200, 60 + 83 * 3, 400);
+var enemy5 = new Enemy(0, 60 + 83 * 4, 500);
 
+var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
 
 var player = new Player(3 * 101, 6 * 83 - 10);
 
