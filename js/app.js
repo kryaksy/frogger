@@ -31,9 +31,9 @@ Enemy.prototype.update = function(dt) {
 		((this.y - player.y) > -50)) {
 
 		player.isActive = false;
+		player.player = 'images/char-boy-burned.png';
 
 		setTimeout(function() {
-			player.resetLocation();
 			player.reset();
 		}, 300);
 		this.speed = 0;
@@ -49,8 +49,8 @@ Enemy.prototype.update = function(dt) {
 	if (player.y < 50) {
 
 		// TODO: Winning Count ++
+		player.player = 'images/char-boy-cool.png';
 		setTimeout(function() {
-			player.resetLocation();
 			player.reset();
 		}, 300);
 
@@ -108,6 +108,7 @@ Player.prototype.reset = function() {
 	this.x = 3 * 101;
 	this.y = 6 * 83 - 10;
 	this.isActive = true;
+	this.player = 'images/char-boy.png';
 }
 
 // Instantiating your objects.
