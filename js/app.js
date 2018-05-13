@@ -34,6 +34,7 @@ Enemy.prototype.update = function(dt) {
 
 		setTimeout(function() {
 			player.resetLocation();
+			player.reset();
 		}, 300);
 		this.speed = 0;
 		setTimeout(function() {
@@ -50,6 +51,7 @@ Enemy.prototype.update = function(dt) {
 		// TODO: Winning Count ++
 		setTimeout(function() {
 			player.resetLocation();
+			player.reset();
 		}, 300);
 
 	}
@@ -64,8 +66,8 @@ Enemy.prototype.render = function() {
 var Player = function(x, y) {
 	this.x = x;
 	this.y = y;
+	
 	this.player = 'images/char-boy.png';
-
 	this.isActive = true;
 }
 
@@ -102,7 +104,7 @@ Player.prototype.handleInput = function(pressedKey) {
 }
 
 // Player resetting location to initial point
-Player.prototype.resetLocation = function() {
+Player.prototype.reset = function() {
 	this.x = 3 * 101;
 	this.y = 6 * 83 - 10;
 	this.isActive = true;
