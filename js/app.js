@@ -24,6 +24,13 @@ Enemy.prototype.update = function(dt) {
 	// which will ensure the game runs at the same speed for
 	// all computers.
 	this.x += this.speed * dt;
+
+	// If an enemy is out of screen, it will go back to
+	// initial point
+	if (this.x > 700) {
+		this.x = -Math.random() * 500;
+		this.speed = Math.random() * 800 + 150;
+	}
 };
 
 // Draw the enemy on the screen, required method for game
