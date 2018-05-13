@@ -31,6 +31,10 @@ Enemy.prototype.update = function(dt) {
 		((this.y - player.y) < 40) &&
 		((this.x - player.x) > -80) &&
 		((this.y - player.y) > -50)) {
+
+		// You've lost this one!
+		player.isActive = false;
+
 		setTimeout(function() {
 			player.resetLocation();
 		}, 300);
