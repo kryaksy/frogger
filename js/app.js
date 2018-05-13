@@ -31,6 +31,18 @@ Enemy.prototype.update = function(dt) {
 		this.x = -Math.random() * 500;
 		this.speed = Math.random() * 800 + 150;
 	}
+
+	// When collision happens between an enemy and the Player
+	// Player turns back to initial point
+	if (((this.x - player.x) < 80) &&
+		((this.y - player.y) < 40) &&
+		((this.x - player.x) > -80) &&
+		((this.y - player.y) > -50)) {
+		setTimeout(function() {
+			player.resetLocation();
+		}, 300);
+	}
+	}
 };
 
 // Draw the enemy on the screen, required method for game
@@ -42,12 +54,18 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+Player.prototype.resetLocation = function() {
+	this.x = 3 * 101;
+	this.y = 6 * 83 - 10;
+	this.isActive = true;
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 
+var player = new Player(3 * 101, 6 * 83 - 10);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
