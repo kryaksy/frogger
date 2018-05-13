@@ -38,12 +38,21 @@ Enemy.prototype.update = function(dt) {
 		setTimeout(function() {
 			player.resetLocation();
 		}, 300);
+
+		this.speed = 0;
+		setTimeout(function() {
+			this.speed = Math.random() * 600 + 150;
+		}.bind(this), 400);
+
+		// TODO: Losing Count ++
+
 	}
 
 	// After reaching the sea, player wins and game starts again
 	if (player.y < 50) {
 		// You've won! Congratulations!!!
 		// TODO: Winning Count ++
+
 		setTimeout(function() {
 			player.resetLocation();
 		}, 300);
