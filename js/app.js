@@ -53,6 +53,10 @@ var Player = function(x, y) {
 
 	this.isActive = true;
 }
+Player.prototype.render = function() {
+	ctx.drawImage(Resources.get(this.player), this.x, this.y);
+}
+
 Player.prototype.handleInput = function(pressedKey) {
 	if (this.isActive) {
 		if (pressedKey == 'left' && this.x > 0) {
