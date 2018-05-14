@@ -84,19 +84,15 @@ Player.prototype.handleInput = function(pressedKey) {
 	if (this.isActive) {
 		if (pressedKey == 'left' && this.x > 0) {
 			this.x -= 101;
-			console.log(this.x + ', ' + this.y);
 		}
 		if (pressedKey == 'up' && this.y > 0) {
 			this.y -= 83;
-			console.log(this.x + ', ' + this.y);
 		}
 		if (pressedKey == 'right' && this.x < 101 * 6) {
 			this.x += 101;
-			console.log(this.x + ', ' + this.y);
 		}
 		if (pressedKey == 'down' && this.y < 83 * 5) {
 			this.y += 83;
-			console.log(this.x + ', ' + this.y);
 		}
 	}
 }
