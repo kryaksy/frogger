@@ -19,10 +19,9 @@ Enemy.prototype.update = function(dt) {
 	// If an enemy is out of screen, it will go back to
 	// initial point
 	if (this.x > 700) {
-		let yPosition = 60 + 83 * Math.floor(Math.random() * 5);
-
-		this.x = -100;
-		this.y = yPosition;
+		this.x = -100 - 900 * Math.random();
+		this.y = 60 + 83 * Math.floor(Math.random() * 5);
+		this.speed = Math.random() * 600 + 150;
 	}
 
 	// When collision happens between an enemy and the Player
