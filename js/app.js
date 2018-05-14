@@ -19,8 +19,9 @@ Enemy.prototype.update = function(dt) {
 	// If an enemy is out of screen, it will go back to
 	// initial point
 	if (this.x > 700) {
-		this.x = -Math.random() * 500;
-		this.speed = Math.random() * 800 + 150;
+		this.x = -100 - 900 * Math.random();
+		this.y = 60 + 83 * Math.floor(Math.random() * 5);
+		this.speed = Math.random() * 600 + 150;
 	}
 
 	// When collision happens between an enemy and the Player
@@ -86,22 +87,28 @@ Player.prototype.handleInput = function(pressedKey) {
 	if (this.isActive) {
 		if (pressedKey == 'left' && this.x > 0) {
 			this.x -= 101;
-			console.log(this.x + ', ' + this.y);
 		}
 		if (pressedKey == 'up' && this.y > 0) {
 			this.y -= 83;
-			console.log(this.x + ', ' + this.y);
 		}
 		if (pressedKey == 'right' && this.x < 101 * 6) {
 			this.x += 101;
-			console.log(this.x + ', ' + this.y);
 		}
 		if (pressedKey == 'down' && this.y < 83 * 5) {
 			this.y += 83;
-			console.log(this.x + ', ' + this.y);
 		}
 	}
 }
+
+//Generate enemies and push them into allEnemies array
+function enemyGenerator() {
+	let yPosition = 60 + 83 * Math.floor(Math.random() * 4);
+	let xSpeed = Math.random() * 600 + 150;
+	allEnemies.push(new Enemy(0, yPosition, xSpeed));
+}
+
+// Place all enemy objects in an array called allEnemies
+var allEnemies = [];
 
 // Player resetting location to initial point
 Player.prototype.reset = function() {
@@ -112,14 +119,9 @@ Player.prototype.reset = function() {
 }
 
 // Instantiating your objects.
-var enemy1 = new Enemy(0, 60, 100);
-var enemy2 = new Enemy(-100, 60 + 83, 200);
-var enemy3 = new Enemy(-100, 60 + 83 * 2, 300);
-var enemy4 = new Enemy(-200, 60 + 83 * 3, 400);
-var enemy5 = new Enemy(0, 60 + 83 * 4, 500);
-
-// Place all enemy objects in an array called allEnemies
-var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5];
+while (allEnemies.length < 5) {
+	enemyGenerator();
+}
 
 // Place the player object in a variable called player
 var player = new Player(3 * 101, 6 * 83 - 10);
