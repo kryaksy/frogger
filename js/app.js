@@ -139,7 +139,7 @@ Player.prototype.updateHTML = function() {
 // After reaching the sea, player wins and game restarts
 Player.prototype.success = function() {
 	if (this.y < 50) {
-
+		this.isActive = false;
 		this.player = 'images/char-boy-cool.png';
 		setTimeout(function() {
 			this.reset();
