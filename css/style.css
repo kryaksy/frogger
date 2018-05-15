@@ -13,11 +13,13 @@ container {
 	position: relative;
 	top: 50px;
 	width: 680px;
+	height: 60px;
 	justify-content: space-between;
 	align-items: center;
-}
-
-#score {
 	font-family: '8-bit pusab', monospace;
 	font-size: 1.3em;
+}
+
+.lost {
+	margin-left: 40%;
 }

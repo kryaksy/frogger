@@ -1,6 +1,5 @@
 // Enemies our player must avoid
 var Enemy = function(x, y, speed) {
-
 	this.x = x;
 	this.y = y;
 	this.speed = speed;
@@ -11,15 +10,12 @@ var Enemy = function(x, y, speed) {
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
+// dt parameter will ensure the game runs at the same
+// speed for all computers.
 Enemy.prototype.update = function(dt) {
-	// dt parameter will ensure the game runs at the same
-	// speed for all computers.
 	this.x += this.speed * dt;
-
 	this.reProduce();
-
 	this.collision();
-
 	player.success();
 
 };
@@ -45,19 +41,25 @@ Enemy.prototype.collision = function() {
 	if (((this.x - player.x) < 80) &&
 		((this.y - player.y) < 40) &&
 		((this.x - player.x) > -80) &&
-		((this.y - player.y) > -50)) {
+		((this.y - player.y) > -50) &&
+		!player.collided) {
 
-		this.speed = 0;
+		player.collided = true;
+		player.hearts -= 1;
 		player.isActive = false;
 		player.player = 'images/char-boy-burned.png';
+		player.updateStars();
+
+		this.speed = 0;
 
 		setTimeout(function() {
-			player.reset();
+			player.resetPlayer();
 		}, 300);
 
 		setTimeout(function() {
 			this.speed = Math.random() * 600 + 150;
 		}.bind(this), 400);
+
 	}
 }
 
@@ -65,16 +67,16 @@ Enemy.prototype.collision = function() {
 var Player = function(x, y) {
 	this.x = x;
 	this.y = y;
-
-	this.player = 'images/char-boy.png';
 	this.isActive = true;
 	this.score = 0;
+	this.hearts = 3;
+	this.collided = false;
+
+	this.player = 'images/char-boy.png';
 }
 
 // This is necessary
-Player.prototype.update = function(dt) {
-
-}
+Player.prototype.update = function(dt) {}
 
 // Rendering player
 Player.prototype.render = function() {
@@ -96,7 +98,6 @@ Player.prototype.handleInput = function(pressedKey) {
 		if (pressedKey == 'down' && this.y < 83 * 5) {
 			this.y += 83;
 		}
-
 		this.updateScore();
 	}
 }
@@ -119,21 +120,41 @@ Player.prototype.updateScore = function() {
 	this.updateHTML();
 }
 
-// Resetting Game without resetting enemies
-Player.prototype.reset = function() {
+// Resets the player
+Player.prototype.resetPlayer = function() {
 	this.x = 3 * 101;
 	this.y = 6 * 83 - 10;
 	this.isActive = true;
-	this.score = 0;
 	this.player = 'images/char-boy.png';
-
+	this.collided = false;
 	this.updateScore();
+
+	// If all hearts passive, game ends
+	if (!this.hearts) {
+		let scrBrd = document.getElementById('scoreBoard');
+		const scrBrdCache = scrBrd.innerHTML;
+		scrBrd.innerHTML = "Game Over!";
+		scrBrd.setAttribute('class', 'lost');
+		this.isActive = false;
+
+		setTimeout(function() {
+			scrBrd.innerHTML = scrBrdCache;
+			scrBrd.removeAttribute('class', 'lost');
+			this.isActive = true;
+			this.score = 0;
+			this.hearts = 3;
+
+			this.resetPlayer();
+			this.updateScore();
+		}.bind(this), 2000)
+	}
 }
 
 // This one will update all HTML elements
 Player.prototype.updateHTML = function() {
-	scr = document.getElementById('score');
+	let scr = document.getElementById('score');
 	scr.innerHTML = this.score;
+	this.updateStars();
 }
 
 // After reaching the sea, player wins and game restarts
@@ -141,10 +162,32 @@ Player.prototype.success = function() {
 	if (this.y < 50) {
 		this.isActive = false;
 		this.player = 'images/char-boy-cool.png';
-		setTimeout(function() {
-			this.reset();
-		}.bind(this), 300);
 
+		setTimeout(function() {
+			this.resetPlayer();
+		}.bind(this), 300);
+	}
+}
+
+// This function gets hearts element and hearts count
+// and updates html
+Player.prototype.updateStars = function() {
+	let hrts = document.getElementById('hearts');
+	let img = hrts.getElementsByTagName('img')
+	if (player.hearts > 0) {
+		img[0].src = "images/Heart.png";
+		if (player.hearts > 1) {
+			img[1].src = "images/Heart.png";
+			if (player.hearts > 2) {
+				img[2].src = "images/Heart.png";
+			} else {
+				img[2].src = "images/Heart-passive.png";
+			}
+		} else {
+			img[1].src = "images/Heart-passive.png";
+		}
+	} else {
+		img[0].src = "images/Heart-passive.png";
 	}
 }
 
@@ -152,7 +195,6 @@ Player.prototype.success = function() {
 function enemyGenerator() {
 	let y = 60 + 83 * Math.floor(Math.random() * 4),
 		speed = Math.random() * 600 + 150;
-
 	allEnemies.push(new Enemy(0, y, speed));
 }
 
@@ -175,6 +217,5 @@ document.addEventListener('keyup', function(e) {
 		39: 'right',
 		40: 'down'
 	};
-
 	player.handleInput(allowedKeys[e.keyCode]);
 });
