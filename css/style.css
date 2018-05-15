@@ -1,3 +1,23 @@
 body {
-    text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+container {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+#scoreBoard {
+	position: relative;
+	top: 50px;
+	width: 680px;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#score {
+	font-family: '8-bit pusab', monospace;
+	font-size: 1.3em;
 }
