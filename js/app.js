@@ -16,52 +16,50 @@ Enemy.prototype.update = function(dt) {
 	// speed for all computers.
 	this.x += this.speed * dt;
 
-	// If an enemy is out of screen, it will go back to
-	// initial point
-	if (this.x > 700) {
-		this.x = -100 - 900 * Math.random();
-		this.y = 60 + 83 * Math.floor(Math.random() * 5);
-		this.speed = Math.random() * 600 + 150;
-	}
+	this.reProduce();
 
-	// When collision happens between an enemy and the Player
-	// Player turns back to initial point
-	if (((this.x - player.x) < 80) &&
-		((this.y - player.y) < 40) &&
-		((this.x - player.x) > -80) &&
-		((this.y - player.y) > -50)) {
+	this.collision();
 
-		player.isActive = false;
-		player.player = 'images/char-boy-burned.png';
+	player.success();
 
-		setTimeout(function() {
-			player.reset();
-		}, 300);
-		this.speed = 0;
-		setTimeout(function() {
-			this.speed = Math.random() * 600 + 150;
-		}.bind(this), 400);
-
-		// TODO: Losing Count ++
-
-	}
-
-	// After reaching the sea, player wins and game restarts
-	if (player.y < 50) {
-
-		// TODO: Winning Count ++
-		player.player = 'images/char-boy-cool.png';
-		setTimeout(function() {
-			player.reset();
-		}, 300);
-
-	}
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
 	ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+// If an enemy is out of screen, it will go back to
+// initial point
+Enemy.prototype.reProduce = function() {
+	if (this.x > 700) {
+		this.x = -100 - 900 * Math.random();
+		this.y = 60 + 83 * Math.floor(Math.random() * 5);
+		this.speed = Math.random() * 600 + 150;
+	}
+}
+
+// When collision happens between an enemy and the Player
+// Player turns back to initial point
+Enemy.prototype.collision = function() {
+	if (((this.x - player.x) < 80) &&
+		((this.y - player.y) < 40) &&
+		((this.x - player.x) > -80) &&
+		((this.y - player.y) > -50)) {
+
+		this.speed = 0;
+		player.isActive = false;
+		player.player = 'images/char-boy-burned.png';
+
+		setTimeout(function() {
+			player.reset();
+		}, 300);
+
+		setTimeout(function() {
+			this.speed = Math.random() * 600 + 150;
+		}.bind(this), 400);
+	}
+}
 
 // Player Class
 var Player = function(x, y) {
@@ -105,8 +103,7 @@ Player.prototype.handleInput = function(pressedKey) {
 
 // Calculating score, each time player moves
 Player.prototype.updateScore = function() {
-	let scr = document.getElementById('score'),
-		tempA = this.x / 101,
+	let tempA = this.x / 101,
 		tempB = (this.y + 10) / 83;
 	const scoreArray = [
 		[42, 41, 40, 39, 38, 37, 36],
@@ -119,20 +116,10 @@ Player.prototype.updateScore = function() {
 	]
 
 	this.score += scoreArray[tempB][tempA];
-	scr.innerHTML = this.score;
+	this.updateHTML();
 }
 
-//Generate enemies and push them into allEnemies array
-function enemyGenerator() {
-	let yPosition = 60 + 83 * Math.floor(Math.random() * 4);
-	let xSpeed = Math.random() * 600 + 150;
-	allEnemies.push(new Enemy(0, yPosition, xSpeed));
-}
-
-// Place all enemy objects in an array called allEnemies
-var allEnemies = [];
-
-// Player resetting location to initial point
+// Resetting Game without resetting enemies
 Player.prototype.reset = function() {
 	this.x = 3 * 101;
 	this.y = 6 * 83 - 10;
@@ -142,6 +129,35 @@ Player.prototype.reset = function() {
 
 	this.updateScore();
 }
+
+// This one will update all HTML elements
+Player.prototype.updateHTML = function() {
+	scr = document.getElementById('score');
+	scr.innerHTML = this.score;
+}
+
+// After reaching the sea, player wins and game restarts
+Player.prototype.success = function() {
+	if (this.y < 50) {
+
+		this.player = 'images/char-boy-cool.png';
+		setTimeout(function() {
+			this.reset();
+		}.bind(this), 300);
+
+	}
+}
+
+//Generate enemies and push them into allEnemies array
+function enemyGenerator() {
+	let y = 60 + 83 * Math.floor(Math.random() * 4),
+		speed = Math.random() * 600 + 150;
+
+	allEnemies.push(new Enemy(0, y, speed));
+}
+
+// Place all enemy objects in an array called allEnemies
+var allEnemies = [];
 
 // Instantiating your objects.
 while (allEnemies.length < 5) {
