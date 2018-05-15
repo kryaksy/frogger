@@ -67,9 +67,10 @@ Enemy.prototype.render = function() {
 var Player = function(x, y) {
 	this.x = x;
 	this.y = y;
-	
+
 	this.player = 'images/char-boy.png';
 	this.isActive = true;
+	this.score = 0;
 }
 
 // This is necessary
@@ -97,7 +98,28 @@ Player.prototype.handleInput = function(pressedKey) {
 		if (pressedKey == 'down' && this.y < 83 * 5) {
 			this.y += 83;
 		}
+
+		this.updateScore();
 	}
+}
+
+// Calculating score, each time player moves
+Player.prototype.updateScore = function() {
+	let scr = document.getElementById('score'),
+		tempA = this.x / 101,
+		tempB = (this.y + 10) / 83;
+	const scoreArray = [
+		[42, 41, 40, 39, 38, 37, 36],
+		[35, 34, 33, 32, 31, 30, 29],
+		[28, 27, 26, 25, 24, 23, 22],
+		[21, 20, 19, 18, 17, 16, 15],
+		[14, 13, 12, 11, 10, 9, 8],
+		[7, 6, 5, 4, 3, 2, 1],
+		[0, 0, 0, 0, 0, 0, 0]
+	]
+
+	this.score += scoreArray[tempB][tempA];
+	scr.innerHTML = this.score;
 }
 
 //Generate enemies and push them into allEnemies array
@@ -115,7 +137,10 @@ Player.prototype.reset = function() {
 	this.x = 3 * 101;
 	this.y = 6 * 83 - 10;
 	this.isActive = true;
+	this.score = 0;
 	this.player = 'images/char-boy.png';
+
+	this.updateScore();
 }
 
 // Instantiating your objects.
