@@ -1,3 +1,8 @@
+@font-face {
+    font-family: pusab;
+    src: url(../assets/fonts/pusab.ttf);
+}
+
 body {
 	display: flex;
 	flex-wrap: wrap;
@@ -16,7 +21,7 @@ container {
 	height: 60px;
 	justify-content: space-between;
 	align-items: center;
-	font-family: '8-bit pusab', monospace;
+	font-family: pusab, monospace;
 	font-size: 1.3em;
 }
 
