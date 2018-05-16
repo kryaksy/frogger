@@ -107,7 +107,7 @@ Player.prototype.updateScore = function() {
 	let tempA = this.x / 101,
 		tempB = (this.y + 10) / 83;
 	const scoreArray = [
-		[42, 41, 40, 39, 38, 37, 36],
+		[8, 7, 6, 5, 4, 3, 2],
 		[35, 34, 33, 32, 31, 30, 29],
 		[28, 27, 26, 25, 24, 23, 22],
 		[21, 20, 19, 18, 17, 16, 15],
@@ -116,7 +116,11 @@ Player.prototype.updateScore = function() {
 		[0, 0, 0, 0, 0, 0, 0]
 	]
 
-	this.score += scoreArray[tempB][tempA];
+	if (tempB == 0) {
+		this.score *= scoreArray[tempB][tempA];
+	} else {
+		this.score += scoreArray[tempB][tempA];
+	}
 	this.updateHTML();
 }
 
