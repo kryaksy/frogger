@@ -197,9 +197,10 @@ Player.prototype.updateStars = function() {
 
 //Generate enemies and push them into allEnemies array
 function enemyGenerator() {
-	let y = 60 + 83 * Math.floor(Math.random() * 4),
+	let x = -Math.random() * 600 - 100,
+		y = 60 + 83 * Math.floor(Math.random() * 4),
 		speed = Math.random() * 600 + 150;
-	allEnemies.push(new Enemy(0, y, speed));
+	allEnemies.push(new Enemy(x, y, speed));
 }
 
 // Place all enemy objects in an array called allEnemies
