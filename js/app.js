@@ -207,7 +207,7 @@ function enemyGenerator() {
 var allEnemies = [];
 
 // Instantiating your objects.
-while (allEnemies.length < 5) {
+while (allEnemies.length < 7) {
 	enemyGenerator();
 }
 
