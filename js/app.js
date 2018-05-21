@@ -159,7 +159,7 @@ Player.prototype.resetPlayer = function() {
 Player.prototype.updateHTML = function() {
 	let scr = document.getElementById('score');
 	scr.innerHTML = this.score;
-	this.updateStars();
+	this.updateHearts();
 }
 
 // After reaching the sea, player wins and game restarts
@@ -176,7 +176,7 @@ Player.prototype.success = function() {
 
 // This function gets hearts element and hearts count
 // and updates html
-Player.prototype.updateStars = function() {
+Player.prototype.updateHearts = function() {
 	let hrts = document.getElementById('hearts');
 	let img = hrts.getElementsByTagName('img')
 	if (player.hearts > 0) {
