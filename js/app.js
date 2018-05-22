@@ -49,7 +49,7 @@ Enemy.prototype.collision = function() {
 		player.score = Math.floor(player.score / 2);
 		player.isActive = false;
 		player.player = 'images/char-boy-burned.png';
-		player.updateStars();
+		player.updateHearts();
 
 		this.speed = 0;
 
@@ -134,7 +134,7 @@ Player.prototype.resetPlayer = function() {
 	this.collided = false;
 	this.updateScore();
 
-	// If all hearts passive, game ends
+	// If all hearts finished, game ends
 	if (!this.hearts) {
 		let scrBrd = document.getElementById('scoreBoard');
 		const scrBrdCache = scrBrd.innerHTML;
