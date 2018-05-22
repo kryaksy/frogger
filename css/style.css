@@ -1,6 +1,6 @@
 @font-face {
-    font-family: pusab;
-    src: url(../assets/fonts/pusab.ttf);
+	font-family: pusab;
+	src: url(../assets/fonts/pusab.ttf);
 }
 
 body {
@@ -27,4 +27,8 @@ container {
 
 .lost {
 	margin-left: 40%;
+}
+
+.win {
+	margin-left: 30%;
 }
