@@ -138,20 +138,42 @@ Player.prototype.resetPlayer = function() {
 	if (!this.hearts) {
 		let scrBrd = document.getElementById('scoreBoard');
 		const scrBrdCache = scrBrd.innerHTML;
-		scrBrd.innerHTML = "Game Over!";
-		scrBrd.setAttribute('class', 'lost');
-		this.isActive = false;
+		if (!this.howMuchWin) {
+			scrBrd.innerHTML = "Game Over!";
+			scrBrd.setAttribute('class', 'lost');
+			this.isActive = false;
 
-		setTimeout(function() {
-			scrBrd.innerHTML = scrBrdCache;
-			scrBrd.removeAttribute('class', 'lost');
-			this.isActive = true;
-			this.score = 0;
-			this.hearts = 3;
+			setTimeout(function() {
+				scrBrd.innerHTML = scrBrdCache;
+				scrBrd.removeAttribute('class', 'lost');
+				this.isActive = true;
+				this.score = 0;
+				this.hearts = 3;
 
-			this.resetPlayer();
-			this.updateScore();
-		}.bind(this), 2000)
+				this.resetPlayer();
+				this.updateScore();
+			}.bind(this), 2000)
+		} else {
+			scrBrd.innerHTML = "Congratulations!";
+			scrBrd.setAttribute('class', 'win');
+			this.isActive = false;
+
+			setTimeout(function() {
+				scrBrd.innerHTML = "<div class = 'black'>" + this.score + " pt.<div>"
+			}.bind(this), 1000)
+
+			setTimeout(function() {
+				scrBrd.innerHTML = scrBrdCache;
+				this.isActive = true;
+				scrBrd.removeAttribute('class', 'win');
+				this.score = 0;
+				this.hearts = 3;
+				this.howMuchWin = 0;
+
+				this.resetPlayer();
+				this.updateScore();
+			}.bind(this), 2000)
+		}
 	}
 }
 
