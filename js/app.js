@@ -46,7 +46,6 @@ Enemy.prototype.collision = function() {
 
 		player.collided = true;
 		player.hearts--;
-		player.score = Math.floor(player.score / 2);
 		player.isActive = false;
 		player.player = 'images/char-boy-burned.png';
 		player.updateHearts();
