@@ -26,9 +26,14 @@ container {
 }
 
 .lost {
-	margin-left: 40%;
+	margin-left: 38%;
+	color: red;
 }
 
 .win {
-	margin-left: 30%;
+	color: green;
+}
+
+.black {
+	color: blue;
 }
