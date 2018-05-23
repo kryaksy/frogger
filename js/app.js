@@ -158,7 +158,13 @@ Player.prototype.resetPlayer = function() {
 // This one will update all HTML elements
 Player.prototype.updateHTML = function() {
 	let scr = document.getElementById('score');
-	scr.innerHTML = this.score;
+	let zeroCount = 4 - this.score.toString().length;
+	let zeroString = '';
+	for (var i = 0; i < zeroCount; i++) {
+		zeroString += '0';
+	}
+
+	scr.innerHTML = zeroString + '' + this.score;
 	this.updateHearts();
 }
 
