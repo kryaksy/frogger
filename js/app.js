@@ -71,6 +71,7 @@ var Player = function(x, y) {
 	this.score = 0;
 	this.hearts = 3;
 	this.collided = false;
+	this.howMuchWin = 0;
 
 	this.player = 'images/char-boy.png';
 }
@@ -166,6 +167,7 @@ Player.prototype.success = function() {
 	if (this.y < 50) {
 		this.isActive = false;
 		this.player = 'images/char-boy-cool.png';
+		this.howMuchWin++;
 
 		setTimeout(function() {
 			this.resetPlayer();
