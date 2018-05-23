@@ -16,8 +16,6 @@ Enemy.prototype.update = function(dt) {
 	this.x += this.speed * dt;
 	this.reProduce();
 	this.collision();
-	player.success();
-
 };
 
 // Draw the enemy on the screen, required method for game
@@ -77,7 +75,9 @@ var Player = function(x, y) {
 }
 
 // This is necessary
-Player.prototype.update = function(dt) {}
+Player.prototype.update = function(dt) {
+	this.success();
+}
 
 // Rendering player
 Player.prototype.render = function() {
