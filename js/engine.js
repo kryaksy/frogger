@@ -22,7 +22,8 @@ var Engine = (function(global) {
 		win = global.window,
 		canvas = doc.createElement('canvas'),
 		ctx = canvas.getContext('2d'),
-		lastTime;
+		lastTime,
+		randCol = Math.floor(Math.random() * 7);
 
 	canvas.width = 707;
 	canvas.height = 670;
@@ -135,7 +136,13 @@ var Engine = (function(global) {
 				 * so that we get the benefits of caching these images, since
 				 * we're using them over and over.
 				 */
-				ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+				if (!row) {
+					if (col == randCol) {
+						ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+					}
+				} else {
+					ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+				}
 			}
 		}
 
