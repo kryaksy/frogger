@@ -254,3 +254,8 @@ document.addEventListener('keyup', function(e) {
 	};
 	player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Canceling arrow keys window scrolling
+document.addEventListener('keydown', function(e) {
+	e.preventDefault();
+});
